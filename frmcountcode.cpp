@@ -20,14 +20,14 @@ frmCountCode::~frmCountCode()
 
 void frmCountCode::initForm()
 {
-    const QStringList headText = {QString::fromUtf8("File name"),
-                                  QString::fromUtf8("File type"),
-                                  QString::fromUtf8("File size"),
-                                  QString::fromUtf8("Total lines"),
-                                  QString::fromUtf8("Code lines"),
-                                  QString::fromUtf8("Comment lines"),
-                                  QString::fromUtf8("Empty lines"),
-                                  QString::fromUtf8("File path")};
+    const QStringList headText = {tr("File name"),
+                                  tr("File type"),
+                                  tr("File size"),
+                                  tr("Total lines"),
+                                  tr("Code lines"),
+                                  tr("Comment lines"),
+                                  tr("Empty lines"),
+                                  tr("File path")};
 
     const int columnCount = headText.count();
     ui->tableWidget->setColumnCount(columnCount);
@@ -50,11 +50,7 @@ void frmCountCode::initForm()
 
     QFont font = QApplication::font();
     font.setBold(true);
-    if (font.pointSize() > 0) {
-        font.setPointSize(font.pointSize() + 1);
-    } else {
-        font.setPixelSize(font.pixelSize() + 2);
-    }
+    font.setPointSize(font.pointSize() + 2);
 
     ui->txtCount->setFont(font);
     ui->txtSize->setFont(font);
@@ -63,8 +59,7 @@ void frmCountCode::initForm()
     ui->txtComment->setFont(font);
     ui->txtEmpty->setFont(font);
 
-    ui->txtFilter->setPlaceholderText(
-        QString::fromUtf8("Use space to separate, for example: *.h *.cpp *.c"));
+    ui->txtFilter->setPlaceholderText(tr("Use space to separate, for example: *.h *.cpp *.c"));
 }
 
 bool frmCountCode::checkFile(const QString &fileName)
@@ -214,7 +209,8 @@ void frmCountCode::countCode(const QString &fileName,
             if (isComment) {
                 lineComments++;
             } else {
-                if (line.startsWith(QString::fromUtf8("//"))) {
+                if (line.startsWith(QString::fromUtf8("//"))
+                    || line.startsWith(QChar::fromLatin1('#'))) {
                     lineComments++;
                 } else if (line.isEmpty()) {
                     lineEmpty++;
@@ -232,9 +228,9 @@ void frmCountCode::countCode(const QString &fileName,
 
 void frmCountCode::on_btnOpenFile_clicked()
 {
-    const QString filter = QString::fromUtf8("Code files (%1)").arg(ui->txtFilter->text().trimmed());
+    const QString filter = tr("Code files (%1)").arg(ui->txtFilter->text().trimmed());
     const QStringList files = QFileDialog::getOpenFileNames(nullptr,
-                                                            QString::fromUtf8("Select files"),
+                                                            tr("Select files"),
                                                             QCoreApplication::applicationDirPath(),
                                                             filter);
     if (files.size() > 0) {
@@ -246,7 +242,7 @@ void frmCountCode::on_btnOpenFile_clicked()
 void frmCountCode::on_btnOpenPath_clicked()
 {
     const QString path = QFileDialog::getExistingDirectory(nullptr,
-                                                           QString::fromUtf8("Select folder"),
+                                                           tr("Select folder"),
                                                            QCoreApplication::applicationDirPath(),
                                                            QFileDialog::ShowDirsOnly
                                                                | QFileDialog::DontResolveSymlinks);
