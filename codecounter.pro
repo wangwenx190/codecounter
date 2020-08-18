@@ -6,3 +6,7 @@ DEFINES += QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII
 HEADERS += frmcountcode.h
 SOURCES += main.cpp frmcountcode.cpp
 FORMS += frmcountcode.ui
+win32 {
+    CONFIG -= embed_manifest_exe
+    RC_FILE = codeocunter.rc
+}
