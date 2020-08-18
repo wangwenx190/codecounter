@@ -8,5 +8,5 @@ SOURCES += main.cpp frmcountcode.cpp
 FORMS += frmcountcode.ui
 win32 {
     CONFIG -= embed_manifest_exe
-    RC_FILE = codeocunter.rc
+    RC_FILE = codecounter.rc
 }
